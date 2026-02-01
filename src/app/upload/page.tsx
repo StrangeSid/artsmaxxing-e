@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { storage } from "@/lib/firebase";
@@ -12,7 +12,6 @@ export default function UploadPage() {
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
 
-
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState<Category>("Art");
@@ -20,18 +19,19 @@ export default function UploadPage() {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-
     const [uploading, setUploading] = useState(false);
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState<string | null>(null);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
+    useEffect(() => {
+        if (!authLoading && !user) {
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
 
-    if (!authLoading && !user) {
-        router.push("/login");
-        return null;
-    }
+    if (!authLoading && !user) return null;
 
     if (authLoading) {
         return (
