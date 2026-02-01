@@ -8,10 +8,10 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post }: PostCardProps) {
-    // Design 4: Clean white card, robust typography, clear actions
+
     return (
         <div className="group bg-[var(--card-background)] rounded-lg border border-[var(--border)] overflow-hidden transition-shadow hover:shadow-md flex flex-col h-full">
-            {/* Preview Area */}
+
             <div className="relative aspect-[4/3] bg-gray-100 border-b border-[var(--border)] overflow-hidden">
                 {post.fileType === "image" ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
@@ -22,12 +22,12 @@ export default function PostCard({ post }: PostCardProps) {
                     />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
-                        {/* Placeholder icon based on type */}
+
                         <span className="text-sm font-medium uppercase tracking-wider">{post.fileType}</span>
                     </div>
                 )}
 
-                {/* Visibility Badge (Top Right) */}
+
                 <div className="absolute top-3 right-3">
                     {post.visibility === 'private' && (
                         <span className="bg-gray-900/10 backdrop-blur-sm text-gray-700 text-xs px-2 py-1 rounded-full border border-white/20">
@@ -42,7 +42,7 @@ export default function PostCard({ post }: PostCardProps) {
                 </div>
             </div>
 
-            {/* Content Area */}
+
             <div className="p-5 flex flex-col flex-grow">
                 <div className="flex items-start justify-between mb-2">
                     <span className={`text-[10px] uppercase tracking-wider font-semibold px-2 py-1 rounded bg-gray-100 text-gray-600`}>
@@ -58,7 +58,7 @@ export default function PostCard({ post }: PostCardProps) {
                     {post.description || "No description provided."}
                 </p>
 
-                {/* Footer: Author & Actions */}
+
                 <div className="mt-auto pt-4 border-t border-[var(--border)] flex items-center justify-between">
                     <div className="text-xs text-gray-500 font-medium">
                         by {post.visibility === 'anonymous' ? 'Anonymous' : (post.authorName || 'Student')}

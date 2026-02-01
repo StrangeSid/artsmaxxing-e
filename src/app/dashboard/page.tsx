@@ -54,7 +54,7 @@ export default function DashboardPage() {
 
     return (
         <div className="container mx-auto px-6 py-8">
-            {/* Header Section */}
+
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-2xl font-bold">
@@ -74,7 +74,7 @@ export default function DashboardPage() {
                 </Link>
             </div>
 
-            {/* Stats Cards */}
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 <div className="bg-white p-6 rounded-xl border border-[var(--border)] shadow-sm">
                     <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
@@ -102,14 +102,14 @@ export default function DashboardPage() {
                 </div>
             </div>
 
-            {/* Content Tabs */}
+
             <div className="mb-6 border-b border-[var(--border)]">
                 <div className="flex gap-8">
                     <button
                         onClick={() => setActiveTab('public')}
                         className={`pb-4 text-sm font-medium transition-colors relative ${activeTab === 'public'
-                                ? 'text-[var(--primary)]'
-                                : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-[var(--primary)]'
+                            : 'text-gray-500 hover:text-gray-700'
                             }`}
                     >
                         Shared with Community
@@ -120,8 +120,8 @@ export default function DashboardPage() {
                     <button
                         onClick={() => setActiveTab('private')}
                         className={`pb-4 text-sm font-medium transition-colors relative ${activeTab === 'private'
-                                ? 'text-[var(--primary)]'
-                                : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-[var(--primary)]'
+                            : 'text-gray-500 hover:text-gray-700'
                             }`}
                     >
                         Private Archive
@@ -132,7 +132,7 @@ export default function DashboardPage() {
                 </div>
             </div>
 
-            {/* Post Grid */}
+
             <div className="min-h-[300px]">
                 {activeTab === 'public' ? (
                     publicPosts.length > 0 ? (

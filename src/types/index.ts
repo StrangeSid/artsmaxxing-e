@@ -9,14 +9,14 @@ export interface UserProfile {
     photoURL: string | null;
     gradeLevel?: string;
     creativityStreak: number;
-    createdAt: number; // Timestamp
+    createdAt: number;
 }
 
 export interface Post {
     id: string;
     authorId: string;
-    authorName?: string; // Optional, only if public visibility
-    authorPhotoURL?: string; // Optional, linked to user profile
+    authorName?: string;
+    authorPhotoURL?: string;
     title: string;
     description?: string;
     fileUrl: string;
@@ -24,7 +24,7 @@ export interface Post {
     category: Category;
     visibility: Visibility;
     createdAt: number;
-    likes?: never; // Explicitly disallowed
+    likes?: never;
     views: number;
 }
 
@@ -35,7 +35,7 @@ export interface Feedback {
         compliment: string;
         suggestion: string;
     };
-    authorId?: string; // Optional/Hidden based on anonymity preferences
+    authorId?: string;
     createdAt: number;
     isTeacherFeedback: boolean;
 }

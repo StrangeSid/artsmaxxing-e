@@ -8,7 +8,7 @@ import { shuffleArray } from "@/lib/utils";
 
 const CATEGORIES: Category[] = ['Art', 'Writing', 'Photography', 'Music', 'Design'];
 
-// Helper to get friendly date labels
+
 function getDayLabel(timestamp: number): string {
     const date = new Date(timestamp);
     const now = new Date();
@@ -27,7 +27,7 @@ export default function LibraryPage() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
 
-    // Filters
+
     const [searchQuery, setSearchQuery] = useState("");
     const [showAnonymousOnly, setShowAnonymousOnly] = useState(false);
 
@@ -35,7 +35,7 @@ export default function LibraryPage() {
         const fetchPosts = async () => {
             setLoading(true);
             try {
-                // Pass undefined if 'All' is selected to fetch all posts
+
                 const categoryArg = selectedCategory === 'All' ? undefined : selectedCategory;
                 const fetchedPosts = await getPosts(categoryArg);
                 setPosts(fetchedPosts);
@@ -54,7 +54,7 @@ export default function LibraryPage() {
 
         let filtered = [...posts];
 
-        // 1. Client-side Search
+
         if (searchQuery.trim()) {
             const q = searchQuery.toLowerCase();
             filtered = filtered.filter(p =>
@@ -63,12 +63,12 @@ export default function LibraryPage() {
             );
         }
 
-        // 2. Anonymous Filter
+
         if (showAnonymousOnly) {
             filtered = filtered.filter(p => p.visibility === 'anonymous');
         }
 
-        // If filtering is active, skip spotlight layout and just show grid
+
         const isFiltering = searchQuery.trim().length > 0 || showAnonymousOnly;
 
         let latest: Post | null = null;
@@ -76,15 +76,14 @@ export default function LibraryPage() {
         let remaining: Post[] = filtered;
 
         if (!isFiltering && filtered.length > 0) {
-            // Sort by Date Descending first to identify Latest
-            // (API usually returns sorted, but safe to ensure)
+
             filtered.sort((a, b) => b.createdAt - a.createdAt);
 
-            // Extract Latest
+
             latest = filtered[0];
             remaining = filtered.slice(1);
 
-            // Extract Spotlight (Random from last 7 days)
+
             const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
             const now = Date.now();
             const recentCandidates = remaining.filter(p => (now - p.createdAt) < ONE_WEEK_MS);
@@ -92,22 +91,22 @@ export default function LibraryPage() {
             if (recentCandidates.length > 0) {
                 const idx = Math.floor(Math.random() * recentCandidates.length);
                 spotlight = recentCandidates[idx];
-                // Remove spotlight from remaining
+
                 remaining = remaining.filter(p => p.id !== spotlight!.id);
             } else if (remaining.length > 0) {
-                // Fallback: Random from all remaining
+
                 const idx = Math.floor(Math.random() * remaining.length);
                 spotlight = remaining[idx];
                 remaining = remaining.filter(p => p.id !== spotlight!.id);
             }
         }
 
-        // Group Remaining by Day
+
         const groupsMap: { label: string; posts: Post[]; sortValue: number }[] = [];
 
         remaining.forEach(post => {
             const label = getDayLabel(post.createdAt);
-            // Use midnight timestamp for sorting groups
+
             const dateObj = new Date(post.createdAt);
             dateObj.setHours(0, 0, 0, 0);
             const sortValue = dateObj.getTime();
@@ -120,10 +119,10 @@ export default function LibraryPage() {
             group.posts.push(post);
         });
 
-        // Sort groups by date descending
+
         groupsMap.sort((a, b) => b.sortValue - a.sortValue);
 
-        // Shuffle posts WITHIN each group
+
         groupsMap.forEach(g => {
             g.posts = shuffleArray(g.posts);
         });
@@ -140,9 +139,9 @@ export default function LibraryPage() {
                     <p className="text-gray-600">Browse creations organized by type and curation.</p>
                 </div>
 
-                {/* Controls Bar */}
+
                 <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between bg-white p-4 rounded-xl border border-[var(--border)] shadow-sm">
-                    {/* Categories */}
+
                     <div className="flex flex-wrap gap-2">
                         <button
                             onClick={() => setSelectedCategory('All')}
@@ -167,7 +166,7 @@ export default function LibraryPage() {
                         ))}
                     </div>
 
-                    {/* Right Controls: Search & Anon */}
+
                     <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                         <div className="relative">
                             <input
@@ -200,10 +199,10 @@ export default function LibraryPage() {
             ) : (
                 <div className="space-y-12">
 
-                    {/* Spotlight Section - Only show if not filtering */}
+
                     {organizedContent.spotlight && organizedContent.latest && (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-8 border-b border-gray-100">
-                            {/* Spotlight Card */}
+
                             <div className="space-y-3">
                                 <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500 flex items-center gap-2">
                                     <span>🌟</span> Weekly Spotlight
@@ -211,7 +210,7 @@ export default function LibraryPage() {
                                 <PostCard post={organizedContent.spotlight} />
                             </div>
 
-                            {/* Latest Drop Card */}
+
                             <div className="space-y-3">
                                 <h2 className="text-xl font-bold text-[var(--foreground)] flex items-center gap-2">
                                     <span>🔥</span> Fresh Drop
@@ -221,7 +220,7 @@ export default function LibraryPage() {
                         </div>
                     )}
 
-                    {/* Main Gallery Groups */}
+
                     {organizedContent.groups.length > 0 ? (
                         <div className="space-y-10">
                             {organizedContent.groups.map((group) => (

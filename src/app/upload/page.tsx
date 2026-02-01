@@ -12,7 +12,7 @@ export default function UploadPage() {
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
 
-    // Form State
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState<Category>("Art");
@@ -20,14 +20,14 @@ export default function UploadPage() {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-    // Upload State
+
     const [uploading, setUploading] = useState(false);
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState<string | null>(null);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Redirect if not authenticated
+
     if (!authLoading && !user) {
         router.push("/login");
         return null;
@@ -45,7 +45,7 @@ export default function UploadPage() {
         if (e.target.files && e.target.files[0]) {
             const selectedFile = e.target.files[0];
 
-            // Validate size (e.g., 50MB limit)
+
             if (selectedFile.size > 50 * 1024 * 1024) {
                 setError("File size exceeds 50MB limit.");
                 return;
@@ -54,7 +54,7 @@ export default function UploadPage() {
             setFile(selectedFile);
             setError(null);
 
-            // Create preview if image
+
             if (selectedFile.type.startsWith("image/")) {
                 const reader = new FileReader();
                 reader.onloadend = () => {
@@ -73,7 +73,7 @@ export default function UploadPage() {
 
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             const droppedFile = e.dataTransfer.files[0];
-            // Validate size
+
             if (droppedFile.size > 50 * 1024 * 1024) {
                 setError("File size exceeds 50MB limit.");
                 return;
@@ -107,7 +107,7 @@ export default function UploadPage() {
         setError(null);
 
         try {
-            // 1. Upload File to Firebase Storage
+
             const storageRef = ref(storage, `uploads/${user.uid}/${Date.now()}_${file.name}`);
             const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -123,13 +123,13 @@ export default function UploadPage() {
                     setUploading(false);
                 },
                 async () => {
-                    // Upload complete
+
                     const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
-                    // 2. Create Post in Firestore
+
                     const postData: Omit<Post, 'id' | 'createdAt' | 'views'> = {
                         authorId: user.uid,
-                        authorName: user.displayName || "Anonymous Artist", // Will be hidden if anonymous visibility
+                        authorName: user.displayName || "Anonymous Artist",
                         authorPhotoURL: user.photoURL || undefined,
                         title,
                         description,
@@ -141,7 +141,7 @@ export default function UploadPage() {
 
                     await createPost(postData);
 
-                    // 3. Redirect to Dashboard
+
                     router.push("/dashboard");
                 }
             );
@@ -165,7 +165,7 @@ export default function UploadPage() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-8">
-                {/* File Upload Area */}
+
                 <div
                     className={`relative border-2 border-dashed rounded-xl p-12 flex flex-col items-center justify-center transition-colors cursor-pointer
                         ${file ? 'border-[var(--primary)] bg-blue-50/30' : 'border-[var(--border)] hover:border-[var(--primary)] hover:bg-gray-50'}
@@ -204,7 +204,7 @@ export default function UploadPage() {
                     )}
                 </div>
 
-                {/* Form Fields */}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-6">
                         <div>
@@ -222,7 +222,7 @@ export default function UploadPage() {
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
                             <div className="relative">
-                                {/* Using native select for simplicity in MVP, could replace with custom dropdown */}
+
                                 <select
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value as Category)}

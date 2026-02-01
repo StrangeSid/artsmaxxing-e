@@ -10,7 +10,7 @@ export interface UserProfile {
   photoURL: string | null;
   gradeLevel?: GradeLevel;
   role: "student" | "teacher" | "admin";
-  creativityStreak: number; // Days active
+  creativityStreak: number;
   lastActiveAt?: Timestamp;
   createdAt: Timestamp;
 }
@@ -18,36 +18,36 @@ export interface UserProfile {
 export interface Category {
   id: string;
   name: string;
-  slug: string; // e.g., 'visual-arts', 'music'
+  slug: string;
   description?: string;
 }
 
 export interface Post {
   id: string;
   authorId: string;
-  authorName?: string | null; // Null if anonymous
+  authorName?: string | null;
   title: string;
   description: string;
   fileUrl: string;
   fileType: "image" | "audio" | "pdf";
-  thumbnailUrl?: string; // For PDFs or Audio covers
+  thumbnailUrl?: string;
   categoryId: string;
   categoryName: string;
   visibility: Visibility;
   createdAt: Timestamp;
   updatedAt: Timestamp;
-  // No comments or likes fields
+
 }
 
 export interface Feedback {
   id: string;
   postId: string;
-  authorId: string; // The teacher or peer giving feedback
+  authorId: string;
   authorRole: "student" | "teacher";
   content: {
-    compliment: string; // "What worked well..."
-    suggestion: string; // "Even better if..."
+    compliment: string;
+    suggestion: string;
   };
-  isAnonymous: boolean; // If true, hide authorName in UI
+  isAnonymous: boolean;
   createdAt: Timestamp;
 }

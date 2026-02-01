@@ -7,7 +7,7 @@ import { getPost, getPostFeedback, addFeedback } from "@/lib/db";
 import { Post, Feedback } from "@/types";
 
 export default function FeedbackPage({ params }: { params: Promise<{ id: string }> }) {
-    // Unwrap params using React.use()
+
     const { id } = use(params);
 
     const { user } = useAuth();
@@ -17,7 +17,7 @@ export default function FeedbackPage({ params }: { params: Promise<{ id: string 
     const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
     const [loading, setLoading] = useState(true);
 
-    // Form State
+
     const [glow, setGlow] = useState("");
     const [grow, setGrow] = useState("");
     const [isAnonymous, setIsAnonymous] = useState(false);
@@ -26,19 +26,17 @@ export default function FeedbackPage({ params }: { params: Promise<{ id: string 
 
     useEffect(() => {
         const fetchData = async () => {
-            // If local dev or MVP, we might need to handle this strictly. 
-            // But for now, fetch data regardless of auth (read access is public for posts).
-            // However, giving feedback requires auth.
+
 
             try {
                 const fetchedPost = await getPost(id);
                 if (!fetchedPost) {
-                    // Handle 404
+
                     return;
                 }
                 setPost(fetchedPost);
 
-                // Fetch feedback separately to allow partial loads
+
                 try {
                     const fetchedFeedback = await getPostFeedback(id);
                     setFeedbacks(fetchedFeedback);
@@ -69,16 +67,16 @@ export default function FeedbackPage({ params }: { params: Promise<{ id: string 
                     suggestion: grow
                 },
                 authorId: isAnonymous ? "anonymous" : user.uid,
-                isTeacherFeedback: false // Default to peer feedback
+                isTeacherFeedback: false
             };
 
             await addFeedback(newFeedback);
 
-            // Optimistic update or refetch
+
             const updatedFeedback = await getPostFeedback(id);
             setFeedbacks(updatedFeedback);
 
-            // Reset form
+
             setGlow("");
             setGrow("");
             setSuccessMessage("Feedback shared successfully!");
@@ -113,7 +111,7 @@ export default function FeedbackPage({ params }: { params: Promise<{ id: string 
     return (
         <div className="max-w-6xl mx-auto px-6 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                {/* Left Column: Post Preview */}
+
                 <div className="space-y-6">
                     <div className="bg-white rounded-lg border border-[var(--border)] overflow-hidden shadow-sm">
                         <div className="relative aspect-[4/3] bg-gray-100 border-b border-[var(--border)]">
@@ -147,9 +145,9 @@ export default function FeedbackPage({ params }: { params: Promise<{ id: string 
                     </div>
                 </div>
 
-                {/* Right Column: Feedback Interface */}
+
                 <div className="space-y-8">
-                    {/* Write Feedback Section - Only if logged in */}
+
                     {user ? (
                         <div className="bg-white rounded-lg border border-[var(--border)] p-6 shadow-sm">
                             <h2 className="text-xl font-bold text-[var(--foreground)] mb-1">Give Feedback</h2>
@@ -221,7 +219,7 @@ export default function FeedbackPage({ params }: { params: Promise<{ id: string 
                         </div>
                     )}
 
-                    {/* Read Feedback Section */}
+
                     <div className="space-y-4">
                         <h3 className="text-lg font-bold text-[var(--foreground)] px-1">Community Feedback ({feedbacks.length})</h3>
 

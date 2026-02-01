@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (firebaseUser) {
         try {
-          // Fetch or create user profile in Firestore
+
           let userProfile = await getUserProfile(firebaseUser.uid);
 
           if (!userProfile) {
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           setProfile(userProfile);
         } catch (error) {
           console.error("Error managing user profile:", error);
-          // profile will be null, no blocking
+
         }
       } else {
         setProfile(null);

@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto px-6 py-12">
-      {/* Header Section */}
+
       <header className="mb-12 text-center md:text-left">
         <h1 className="text-4xl font-bold text-foreground mb-4 tracking-tight">Creative Library</h1>
         <p className="text-lg text-gray-600 max-w-2xl">
@@ -33,7 +33,7 @@ export default function Home() {
         </p>
       </header>
 
-      {/* Filter Bar */}
+
       <div className="mb-8 flex flex-wrap gap-2 overflow-x-auto pb-4">
         {categories.map((cat) => (
           <button
@@ -49,7 +49,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Content Grid */}
+
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-pulse">
           {[1, 2, 3].map(i => (

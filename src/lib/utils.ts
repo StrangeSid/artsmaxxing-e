@@ -1,11 +1,4 @@
-/**
- * generic utility functions
- */
 
-/**
- * Shuffles an array using the Fisher-Yates algorithm.
- * Returns a new array instance, does not mutate the original.
- */
 export function shuffleArray<T>(array: T[]): T[] {
     const newArr = [...array];
     for (let i = newArr.length - 1; i > 0; i--) {

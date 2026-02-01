@@ -12,7 +12,7 @@ import {
 import { db } from "./firebase";
 import { UserProfile, Post, Feedback, Category } from "@/types";
 
-// User Operations
+
 export const createUserProfile = async (user: UserProfile) => {
     if (!user.uid) return;
     const userRef = doc(db, "users", user.uid);
@@ -36,7 +36,7 @@ export const getUserProfile = async (uid: string): Promise<UserProfile | null> =
     return null;
 };
 
-// Post Operations
+
 export const createPost = async (postData: Omit<Post, 'id' | 'createdAt' | 'views'>) => {
     const postsRef = collection(db, "posts");
     const newPost = {
@@ -80,7 +80,7 @@ export const getUserPosts = async (authorId: string): Promise<Post[]> => {
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Post));
 };
 
-// Feedback Operations
+
 export const addFeedback = async (feedback: Omit<Feedback, 'id' | 'createdAt'>) => {
     const feedbackRef = collection(db, "feedback");
     await addDoc(feedbackRef, {
