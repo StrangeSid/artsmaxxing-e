@@ -36,7 +36,7 @@ export default function UploadPage() {
     if (authLoading) {
         return (
             <div className="flex h-[calc(100vh-4rem)] items-center justify-center">
-                <div className="w-8 h-8 rounded-full border-2 border-[var(--primary)] border-t-transparent animate-spin" />
+                <div className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
             </div>
         );
     }
@@ -155,7 +155,7 @@ export default function UploadPage() {
 
     return (
         <div className="max-w-3xl mx-auto px-6 py-8">
-            <h1 className="text-3xl font-bold text-[var(--foreground)] mb-2">Share Your Creation</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Share Your Creation</h1>
             <p className="text-gray-600 mb-8">Upload your work in a safe, judgment-free environment.</p>
 
             {error && (
@@ -168,7 +168,7 @@ export default function UploadPage() {
 
                 <div
                     className={`relative border-2 border-dashed rounded-xl p-12 flex flex-col items-center justify-center transition-colors cursor-pointer
-                        ${file ? 'border-[var(--primary)] bg-blue-50/30' : 'border-[var(--border)] hover:border-[var(--primary)] hover:bg-gray-50'}
+                        ${file ? 'border-primary bg-blue-50/30' : 'border-border hover:border-primary hover:bg-gray-50'}
                     `}
                     onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
                     onDrop={handleDrop}
@@ -187,18 +187,18 @@ export default function UploadPage() {
                         <img src={previewUrl} alt="Preview" className="max-h-64 object-contain rounded-lg shadow-sm" />
                     ) : file ? (
                         <div className="text-center">
-                            <div className="w-16 h-16 bg-[var(--primary)] text-white rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+                            <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
                                 📄
                             </div>
-                            <p className="font-medium text-[var(--foreground)]">{file.name}</p>
+                            <p className="font-medium text-foreground">{file.name}</p>
                             <p className="text-sm text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                         </div>
                     ) : (
                         <div className="text-center">
-                            <div className="w-16 h-16 bg-blue-50 text-[var(--primary)] rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+                            <div className="w-16 h-16 bg-blue-50 text-primary rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
                                 ⬆️
                             </div>
-                            <p className="font-medium text-[var(--foreground)] text-lg">Click to upload or drag and drop</p>
+                            <p className="font-medium text-foreground text-lg">Click to upload or drag and drop</p>
                             <p className="text-sm text-gray-400 mt-2">PNG, JPG, MP3, PDF up to 50MB</p>
                         </div>
                     )}
@@ -213,7 +213,7 @@ export default function UploadPage() {
                                 type="text"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                className="w-full px-4 py-2 rounded-lg border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent outline-none transition-all"
+                                className="w-full px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
                                 placeholder="Give your work a name..."
                                 required
                             />
@@ -226,7 +226,7 @@ export default function UploadPage() {
                                 <select
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value as Category)}
-                                    className="w-full px-4 py-2 rounded-lg border border-[var(--border)] appearance-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent outline-none transition-all cursor-pointer bg-white"
+                                    className="w-full px-4 py-2 rounded-lg border border-border appearance-none focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all cursor-pointer bg-white"
                                 >
                                     <option value="Art">Art</option>
                                     <option value="Writing">Writing</option>
@@ -243,7 +243,7 @@ export default function UploadPage() {
                             <textarea
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                                className="w-full px-4 py-2 rounded-lg border border-[var(--border)] focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent outline-none transition-all min-h-[120px]"
+                                className="w-full px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all min-h-30"
                                 placeholder="Tell us about your creation..."
                             />
                         </div>
@@ -253,47 +253,47 @@ export default function UploadPage() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">Visibility Settings</label>
 
                         <div className="space-y-3">
-                            <label className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${visibility === 'public' ? 'border-[var(--primary)] bg-blue-50/50 shadow-sm' : 'border-[var(--border)] hover:border-gray-300'}`}>
+                            <label className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${visibility === 'public' ? 'border-primary bg-blue-50/50 shadow-sm' : 'border-border hover:border-gray-300'}`}>
                                 <input
                                     type="radio"
                                     name="visibility"
                                     value="public"
                                     checked={visibility === 'public'}
                                     onChange={() => setVisibility('public')}
-                                    className="mt-1 text-[var(--primary)] focus:ring-[var(--primary)]"
+                                    className="mt-1 text-primary focus:ring-primary"
                                 />
                                 <div>
-                                    <p className="font-medium text-[var(--foreground)]">Public with Name</p>
+                                    <p className="font-medium text-foreground">Public with Name</p>
                                     <p className="text-xs text-gray-500 mt-1">Visible to everyone with your name attached. Best for building your portfolio.</p>
                                 </div>
                             </label>
 
-                            <label className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${visibility === 'anonymous' ? 'border-[var(--primary)] bg-blue-50/50 shadow-sm' : 'border-[var(--border)] hover:border-gray-300'}`}>
+                            <label className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${visibility === 'anonymous' ? 'border-primary bg-blue-50/50 shadow-sm' : 'border-border hover:border-gray-300'}`}>
                                 <input
                                     type="radio"
                                     name="visibility"
                                     value="anonymous"
                                     checked={visibility === 'anonymous'}
                                     onChange={() => setVisibility('anonymous')}
-                                    className="mt-1 text-[var(--primary)] focus:ring-[var(--primary)]"
+                                    className="mt-1 text-primary focus:ring-primary"
                                 />
                                 <div>
-                                    <p className="font-medium text-[var(--foreground)]">Anonymous Public</p>
+                                    <p className="font-medium text-foreground">Anonymous Public</p>
                                     <p className="text-xs text-gray-500 mt-1">Visible to everyone, but your name is hidden. Great for getting feedback without pressure.</p>
                                 </div>
                             </label>
 
-                            <label className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${visibility === 'private' ? 'border-[var(--primary)] bg-blue-50/50 shadow-sm' : 'border-[var(--border)] hover:border-gray-300'}`}>
+                            <label className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${visibility === 'private' ? 'border-primary bg-blue-50/50 shadow-sm' : 'border-border hover:border-gray-300'}`}>
                                 <input
                                     type="radio"
                                     name="visibility"
                                     value="private"
                                     checked={visibility === 'private'}
                                     onChange={() => setVisibility('private')}
-                                    className="mt-1 text-[var(--primary)] focus:ring-[var(--primary)]"
+                                    className="mt-1 text-primary focus:ring-primary"
                                 />
                                 <div>
-                                    <p className="font-medium text-[var(--foreground)]">Private Archive</p>
+                                    <p className="font-medium text-foreground">Private Archive</p>
                                     <p className="text-xs text-gray-500 mt-1">Only you can see this. Use it to track your progress over time.</p>
                                 </div>
                             </label>
@@ -303,7 +303,7 @@ export default function UploadPage() {
                             <button
                                 type="submit"
                                 disabled={uploading || !file || !title}
-                                className="w-full py-3 px-6 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-medium rounded-lg shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                className="w-full py-3 px-6 bg-primary hover:bg-primary-hover text-white font-medium rounded-lg shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
                                 {uploading ? (
                                     <>
